@@ -1,0 +1,12 @@
+[
+  {
+    "cover":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSduvLkCPI6HKDLF2V7N4x9mnDzpiplQcBnzoZHGkX_2g&s",
+    "title":"Web developement",
+    "instructor":"Jhon Doe",
+    "duration":"10 hours",
+    "rating":4.5,
+    "description":"Web development is the building and maintenance of websites; it's the work that happens behind the scenes to make a website look great, work fast and perform well with a seamless user experience. Web developers, or 'devs', do this by using a variety of coding languages.",
+    "price":99,
+    "studnet":420
+  }
+]
