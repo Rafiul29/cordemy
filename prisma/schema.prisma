@@ -12,8 +12,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Course{
+model Course {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   cover String
   title String
@@ -23,6 +22,6 @@ model Course{
   description String
   price Float
   students Int
-  createAt DateTime @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
