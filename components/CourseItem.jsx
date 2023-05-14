@@ -2,6 +2,7 @@ import { currencyConverter } from "@/utlis/currency";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineStar } from "react-icons/ai";
+import Button from "./Button";
 
 export const CourseItem = ({ course }) => {
   return (
@@ -34,7 +35,7 @@ export const CourseItem = ({ course }) => {
         <p className="text-gray-500 h-22">{course.description.substring(0,120)}...</p>
         <div className="flex justify-between items-center ">
           <p className="text-lg font-semibold">{currencyConverter(course.price,"en-GB","EUR")}</p>
-          <Link href={`/courses/${course.id}`}>View Details</Link>
+          <Button href={`/courses/${course.id}`} placeholder="View Details" color="primary" size="default" />
         </div>
       </div>
     </div>
