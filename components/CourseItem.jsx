@@ -35,7 +35,9 @@ export const CourseItem = ({ course }) => {
         <p className="text-gray-500 h-22">{course.description.substring(0,120)}...</p>
         <div className="flex justify-between items-center ">
           <p className="text-lg font-semibold">{currencyConverter(course.price,"en-GB","EUR")}</p>
+
           <Button href={`/courses/${course.id}`} placeholder="View Details" color="primary" size="default" />
+          
         </div>
       </div>
     </div>

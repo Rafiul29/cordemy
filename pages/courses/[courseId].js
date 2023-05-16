@@ -1,9 +1,22 @@
 import Button from "@/components/Button";
 import { getSingleCourse } from "@/prisma/courses";
 import { currencyConverter } from "@/utlis/currency";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React from "react";
 
 const CourseDetails = ({ course }) => {
+
+  const {data:session}=useSession();
+  const router=useRouter()
+
+  const handleEnroll=()=>{
+    if(session){
+      router.push(`/checkout/${course.id}`);
+    }else{
+      router.push(`/users/login?destination=/checkout/${course.id}`)
+    }
+  }
 
   return (
     <div className="wrapper py-10 min-h-screen">
@@ -40,7 +53,10 @@ const CourseDetails = ({ course }) => {
               Price :
             {currencyConverter(course.price)}
           </p>
-          <Button href="/checkout" placeholder="Enroll now" size="full" />
+
+     
+          <button onClick={handleEnroll} className="bg-black  text-white py-3 rounded-lg w-full hover:bg-gray-700 duration-300">Enroll Now</button>
+
         </div>
       </div>
     </div>
@@ -56,8 +72,7 @@ export const getServerSideProps = async ({ query }) => {
     createdAt: course.createdAt.toString(),
     updatedAt: course.updatedAt.toString(),
   };
-  console.log(updatedCourse);
-
+  
   return {
     props: {
       course: updatedCourse,
