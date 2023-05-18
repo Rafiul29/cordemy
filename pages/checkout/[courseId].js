@@ -1,8 +1,13 @@
 import SectionHeader from "@/components/SectionHeader";
 import { getSingleCourse } from "@/prisma/courses";
-import { currencyConverter } from "@/utlis/currency";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+
+// stripe promise
+const stripePromise=loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
 
 const CheckOut = ({ course }) => {
   const { data: session } = useSession();
@@ -23,11 +28,30 @@ const CheckOut = ({ course }) => {
         email: session.user.email,
       }));
     }
-  });
+  },[session]);
 
-  const handleCheckout=(e)=>{
+  // chckout handler
+  const handleCheckout=async(e)=>{
     e.preventDefault();
-    
+    const stripe = await stripePromise;
+
+    // Send a post resuest to the server
+    const checkoutSession=await axios.post('/api/create-checkout-session',{
+      items:[course],
+      name:formData.name,
+      email:formData.email,
+      mobile:formData.mobile,
+      address:formData.address,
+      courseTitle:formData.courseTitle
+    })
+
+    //redirect to the stripe payment
+    const result = await stripe.redirectToCheckout({
+      sessionId:checkoutSession.data.id,
+    })
+    if(result.error){
+      console.log(result.error.message)
+    }
   }
 
 
@@ -83,6 +107,7 @@ const CheckOut = ({ course }) => {
               onChange={(e) =>
                 setFormData({ ...formData, mobile: e.target.value })
               }
+              required
             />
           </div>
 
@@ -99,6 +124,7 @@ const CheckOut = ({ course }) => {
               onChange={(e) =>
                 setFormData({ ...formData, address: e.target.value })
               }
+              required
             />
           </div>
 
