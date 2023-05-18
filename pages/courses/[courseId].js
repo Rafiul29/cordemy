@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import { getSingleCourse } from "@/prisma/courses";
 import { currencyConverter } from "@/utlis/currency";
 import { useSession } from "next-auth/react";
