@@ -1,7 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 async function createStripeCheckout(req, res) {
-  const { items, name, email, address, mobile, courseTitle } = req.body;
+  const { items, name, email, address, mobile, courseTitle,courseId } = req.body;
 
   const transformItems = items.map((item) => ({
     quantity: 1,
@@ -20,7 +20,7 @@ async function createStripeCheckout(req, res) {
     payment_method_types: ["card"],
     line_items: transformItems,
     mode: "payment",
-    success_url: `${process.env.HOST}`,
+    success_url: `${process.env.HOST}/success`,
     cancel_url: `${process.env.HOST}`,
     metadata: {
       name,
@@ -28,6 +28,7 @@ async function createStripeCheckout(req, res) {
       mobile,
       address,
       courseTitle,
+      courseId,
       images:JSON.stringify(items.map((item)=>item.cover))
     },
   });

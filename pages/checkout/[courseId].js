@@ -42,7 +42,8 @@ const CheckOut = ({ course }) => {
       email:formData.email,
       mobile:formData.mobile,
       address:formData.address,
-      courseTitle:formData.courseTitle
+      courseTitle:formData.courseTitle,
+      courseId:course.id,
     })
 
     //redirect to the stripe payment
