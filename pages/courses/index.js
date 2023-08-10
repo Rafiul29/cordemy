@@ -5,6 +5,7 @@ import { getAllCourses } from "@/prisma/courses";
 
 const CoursesPage = ({courses}) => {
 
+
   return (
     <div className="wrapper py-10">
       <SectionHeader
@@ -43,3 +44,4 @@ export const getServerSideProps=async()=>{
     }
   }
 }
+
