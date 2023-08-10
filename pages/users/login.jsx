@@ -60,7 +60,7 @@ export const getServerSideProps=async(context)=>{
     return {
       redirect:{
         destination,
-        parmanet:false
+        permanent: false,
       }
     }
   }
